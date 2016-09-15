@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Aten Contact API</title>
+  </head>
+  <body>
+    <p>Welcome to the Aten Contact API</p>
+    <div id="app">
+      <ul>
+        <li v-for="contact in contacts">
+          {{ contact.attributes.firstName }} {{ contact.attributes.lastName }}
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="assets/vue.min.js"></script>
+    <script type="text/javascript" src="assets/app.js"></script> 
+  </body>
+</html>
