@@ -1,0 +1,35 @@
+.container .row:first-child {
+//  margin-top: 20vh;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  width: 100%;
+}
+
+.contact {
+  padding: 1em 1.25em;
+  line-height: 1.25em;
+}
+
+.contact:hover {
+  background: #f5f5f5;
+}
+
+.contact:nth-child(odd) {
+  background: #fafafa;
+}
+
+.contact:nth-child(odd):hover {
+  background: #f5f5f5;
+}
+
+.inline-block {
+  display: inline-block;
+}

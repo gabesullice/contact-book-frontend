@@ -1,8 +1,14 @@
 var Contact = Vue.extend({
   props: ['contact'],
   template: `
-<p><span class="lead">{{ contact.attributes.firstName }} {{ contact.attributes.lastName }}</span>&nbsp;<small>{{ contact.attributes.name }}</small></p>
-<p><a href="mailto:{{ contact.attributes.emails[0] }}">{{ contact.attributes.emails[0] }}</a></p>
+<div class="inline-block">
+<p class="name"><span class="lead">{{ contact.attributes.firstName }} {{ contact.attributes.lastName }}</span></p>
+<p class="organization">{{ contact.attributes.name }}</p>
+</div>
+<div class="inline-block pull-right">
+<p class="email"><a href="mailto:{{ contact.attributes.emails[0] }}">{{ contact.attributes.emails[0] }}</a></p>
+<p class="phone"><a href="tel:{{ contact.attributes.phones[0].number }}">{{ contact.attributes.phones[0].number }}</a></p>
+</div>
 `
 });
 Vue.component('app-contact', Contact)
