@@ -31,6 +31,10 @@
   display: inline-block;
 }
 
+.contact .addresses {
+  text-align: right;
+}
+
 .contact:hover .pencil-container {
   display: inline-block;
 }

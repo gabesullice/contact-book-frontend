@@ -1,11 +1,11 @@
 var Contact = Vue.extend({
   props: ['contact'],
   template: `
-<div class="inline-block">
+<div class="names inline-block">
   <p class="name"><span class="lead">{{ contact.attributes.firstName }} {{ contact.attributes.lastName }}</span></p>
   <p class="organization">{{ contact.attributes.name }}</p>
 </div>
-<div class="inline-block pull-right">
+<div class="addresses inline-block pull-right">
   <p class="email"><a href="mailto:{{ contact.attributes.emails[0] }}">{{ contact.attributes.emails[0] }}</a></p>
   <p class="phone"><a href="tel:{{ contact.attributes.phones[0].number }}">{{ contact.attributes.phones[0].number }}</a></p>
 </div>
@@ -16,16 +16,20 @@ var Contact = Vue.extend({
 });
 Vue.component('app-contact', Contact)
 
-var req = new XMLHttpRequest();
-req.open("GET", "http://contacts.atendesigngroup.com/v0/contacts", false)
-req.send();
-resp = JSON.parse(req.response);
-console.log(resp);
-
 new Vue({
   el: "#app",
-  data: {
-    filterTerm: '',
-    contacts: resp.data
+  data: function () {
+    return {
+      filterTerm: '',
+      contacts: []
+    }
+  },
+  ready: function () {
+    this.$http.get('http://contacts.atendesigngroup.com/v0/contacts').then(function (resp) {
+      var contacts = JSON.parse(resp.body);
+      this.contacts = contacts.data;
+    }, function (resp, status, req) {
+      console.log("Failed to fetch contacts.", resp);
+    });
   }
 });
