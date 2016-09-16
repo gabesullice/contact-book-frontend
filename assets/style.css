@@ -1,7 +1,3 @@
-.container .row:first-child {
-//  margin-top: 20vh;
-}
-
 .logo-container {
   display: flex;
   justify-content: center;
@@ -14,6 +10,7 @@
 }
 
 .contact {
+  position: relative;
   padding: 1em 1.25em;
   line-height: 1.25em;
 }
@@ -32,4 +29,15 @@
 
 .inline-block {
   display: inline-block;
+}
+
+.contact:hover .pencil-container {
+  display: inline-block;
+}
+
+.pencil-container {
+  display: none;
+  position: absolute;
+  bottom: 1em;
+  right: 1.25em;
 }
