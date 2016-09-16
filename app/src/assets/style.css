@@ -1,0 +1,60 @@
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  width: 100%;
+}
+
+.contact {
+  position: relative;
+  padding: 1em 1.25em;
+  line-height: 1.25em;
+}
+
+.contact:hover {
+  background: #f5f5f5;
+}
+
+.contact:nth-child(odd) {
+  background: #fafafa;
+}
+
+.contact:nth-child(odd):hover {
+  background: #f5f5f5;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.contact .addresses {
+  text-align: right;
+}
+
+.contact:hover .pencil-container {
+  display: inline-block;
+}
+
+.pencil-container {
+  display: none;
+  position: absolute;
+  bottom: 1em;
+  right: 1.25em;
+}
+
+.pencil-container:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.contact .edit-form {
+  padding: 1em 1.25em;
+}
+
+.contact .btn {
+  margin-left: -1.25em;
+}
