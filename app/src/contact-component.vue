@@ -1,75 +1,81 @@
 <template>
 <div class="contact">
-  <div class="names inline-block">
+  <div v-if="created" class="names inline-block">
     <p class="name"><span class="lead">{{ contact.attributes.firstName }} {{ contact.attributes.lastName }}</span></p>
+    <p class="position">{{ contact.attributes.position }}</p>
     <p class="organization">{{ contact.attributes.name }}</p>
   </div>
-  <div class="addresses inline-block pull-right">
+  <div v-if="created" class="addresses inline-block pull-right">
     <p class="email"><a :href="'mailto:' + contact.attributes.emails[0]">{{ contact.attributes.emails[0] }}</a></p>
     <p class="phone"><a :href="'tel:' + contact.attributes.phones[0].number">{{ contact.attributes.phones[0].number }}</a></p>
   </div>
+  <contact-form v-if="formActive" :mode="created ? 'edit' : 'new'" :contact="getContactCopy()" v-on:contactCreated="$emit('contactCreated'); formActive = false"></contact-form>
   <div class="pencil-container" v-on:click="toggleEdit()">
     <span class="glyphicon glyphicon-pencil edit-icon" aria-hidden="true"></span>
-  </div>
-  <div class="editor" v-if="editOpen">
-    <form class="edit-form form-horizontal">
-      <div class="form-group">
-        <label for="#first-name">First Name</label>
-        <input id="first-name" type="text" class="form-control" v-model="contact.attributes.firstName">
-      </div>
-      <div class="form-group">
-        <label for="#last-name">Last Name</label>
-        <input id="last-name" type="text" class="form-control" v-model="contact.attributes.lastName">
-      </div>
-      <div class="form-group">
-        <label for="#email">Email</label>
-        <input id="email" type="email" class="form-control" v-model="contact.attributes.emails[0]">
-      </div>
-      <div class="form-group">
-        <label for="#phone">Phone</label>
-        <input id="phone" type="tel" class="form-control" v-model="contact.attributes.phones[0].number">
-      </div>
-      <button id="submit" type="button" class="btn btn-success" v-on:click="updateContact()">Save</button>
-    </form>
   </div>
 </div>
 </template>
 
 <script>
+import ContactForm from './contact-form.vue'
 export default {
-  props: ['contact'],
-  data () {
-    return {
-      editOpen: false
+  components: { 
+    'contact-form': ContactForm
+  },
+  props: {
+    formActive: {
+      type: Boolean,
+      default: false
+    },
+    contact: {
+      type: Object,
+      default: {
+        type: "contacts",
+        attributes: {
+          firstName: "",
+          lastName: "",
+          position: "",
+          organization: "",
+          name: "",
+          emails: [],
+          phones: [{
+            number: ""
+          }]
+        }
+      }
+    },
+    created: {
+      type: Boolean,
+      default: true
     }
+  },
+  data () {
+    return {}
   },
   methods: {
     toggleEdit () {
-      this.editOpen = !this.editOpen
+      this.formActive = !this.formActive
     },
-    updateContact () {
-      const body = {
-        "data": {
-          "id": this.contact.id,
-          "type": "contacts",
-          "attributes": {
-            "firstName": this.contact.attributes.firstName,
-            "lastName": this.contact.attributes.lastName,
-            "emails": this.contact.attributes.emails,
-            "phones": this.contact.attributes.phones
-          }
+    getContactCopy() {
+      return {
+        id: this.contact.id,
+        type: "contacts",
+        attributes: {
+          firstName: this.contact.attributes.firstName,
+          lastName: this.contact.attributes.lastName,
+          position: this.contact.attributes.position,
+          organization: this.contact.attributes.organization,
+          name: this.contact.attributes.name,
+          emails: this.contact.attributes.emails,
+          phones: this.contact.attributes.phones
         }
       }
-
-      this.$http.patch("http://contacts.atendesigngroup.com/v0/contacts/" + this.contact.id, body, (resp) => {
-        console.log("Success!")
-      }, (resp, status, req) => {
-        console.log(resp)
-      })
     }
-  }
+  },
 }
 </script>
 
 <style>
 </style>
+
+// vim:ft=html
